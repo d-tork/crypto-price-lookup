@@ -32,6 +32,8 @@ def read_secrets(filename: str) -> dict:
 def get_quote(currency: str, secrets: dict) -> dict:
     """Get the quote of a currency.
 
+    If historic spot price needed, add `date` parameter to `get_spot_price` as YYYY-MM-DD
+
     Returns:
         API response dict, with the fields
         - amount
