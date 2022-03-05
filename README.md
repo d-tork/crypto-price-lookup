@@ -9,13 +9,21 @@ the Pro version. However, neither has bulk endpoints so you have to loop through
 at a time anyway. The script `pro.py` does this in chunks of 10 followed by a short sleep to 
 abide by the rate limits.
 
+## Usage
+First, create and activate the environment
+```bash
+python3 -m venv venv
+source venv/bin/activate
+python -m pip install -r requirements.txt
+```
+
 ## Single token - Coinbase API
 using [`coinbase`](https://github.com/coinbase/coinbase-python/) which, although officially from
 Coinbase, is deprecated & archived. Pass a cryptocurrency ticker symbol as the only argument
 and it will print the quote.
 
 ```bash
-./main.py BTC
+python main.py BTC
 ```
 
 ## Multiple tokens - Coinbase Pro API
@@ -33,7 +41,7 @@ YFI
 AMP
 ```
 ```bash
-./pro.py currency_list.txt
+python pro.py currency_list.txt
 ```
 
 Alternatively, could try [`coinbasepro`](https://github.com/acontry/coinbasepro)

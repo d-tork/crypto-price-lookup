@@ -1,5 +1,3 @@
-#!/Users/dtork/Documents/Python/coinbase-api/venv/bin/python
-
 import yaml 
 import argparse
 from coinbase.wallet.client import Client

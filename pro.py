@@ -1,4 +1,3 @@
-#!/Users/dtork/Documents/Python/coinbase-api/venv/bin/python
 """
 Use the Coinbase Pro API to bulk get prices.
 
