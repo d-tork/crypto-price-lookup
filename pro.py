@@ -2,7 +2,7 @@
 Use the Coinbase Pro API to bulk get prices.
 
 """
-
+import logging
 import argparse
 import cbpro
 import pandas as pd
@@ -33,6 +33,7 @@ class CoinbaseProClient(cbpro.PublicClient):
             print(chunk)
 
             fetched_quotes = [self._get_quote(coin, date) for coin in chunk]
+            fetched_quotes = [x for x in fetched_quotes if x]
             quote_update = {
                 coin: {'price': quote, 'time': time} for coin, (quote, time) in zip(chunk, fetched_quotes)
             }
@@ -56,6 +57,7 @@ class CoinbaseProClient(cbpro.PublicClient):
             try:
                 return quote_data['price'], quote_data['time']
             except KeyError:
+                logging.warning(f'No quote data for {currency_pair}')
                 continue
         return None
 
@@ -70,9 +72,14 @@ class CoinbaseProClient(cbpro.PublicClient):
         Converts the timestamp from unix seconds to a datetime object.
         """
         response_fields = 'time low high open close volume'.split()
-        candle_data = {k: v for k, v in zip(response_fields, response[0])}
-        candle_data['price'] = candle_data['close']
-        candle_data['time'] = datetime.fromtimestamp(candle_data['time'])
+        try:
+            resp_data = response[0]
+        except KeyError:
+            candle_data = {}
+        else:
+            candle_data = {k: v for k, v in zip(response_fields, resp_data)}
+            candle_data['price'] = candle_data['close']
+            candle_data['time'] = datetime.fromtimestamp(candle_data['time'])
         return candle_data
 
 
