@@ -9,12 +9,18 @@ the Pro version. However, neither has bulk endpoints so you have to loop through
 at a time anyway. The script `pro.py` does this in chunks of 10 followed by a short sleep to 
 abide by the rate limits.
 
-## Usage
+## Setup
 First, create and activate the environment
 ```bash
 python3 -m venv venv
 source venv/bin/activate
 python -m pip install -r requirements.txt
+```
+
+You'll need a `secrets.yaml` file from Coinbase API website:
+```
+api_key: <api_key>
+api_secret: <api_secret>
 ```
 
 ## Single token - Coinbase API
