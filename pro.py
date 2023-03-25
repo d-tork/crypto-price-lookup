@@ -33,7 +33,6 @@ class CoinbaseProClient(cbpro.PublicClient):
             print(chunk)
 
             fetched_quotes = [self._get_quote(coin, date) for coin in chunk]
-            fetched_quotes = [x for x in fetched_quotes if x]
             quote_update = {
                 coin: {'price': quote, 'time': time} for coin, (quote, time) in zip(chunk, fetched_quotes)
             }
@@ -59,7 +58,7 @@ class CoinbaseProClient(cbpro.PublicClient):
             except KeyError:
                 logging.warning(f'No quote data for {currency_pair}')
                 continue
-        return None
+        return None, None
 
     @staticmethod
     def _parse_historic_candle_data(response: list) -> dict:
